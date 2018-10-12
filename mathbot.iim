@@ -1,0 +1,29 @@
+VERSION BUILD=10021450
+SET !EXTRACT_TEST_POPUP NO
+WAIT SECONDS=0.25
+SET !VAR2 EVAL("var nilai1,nilai2,op,var1,var2,b,z,hasil;")
+SET !VAR1 NULL
+SET !VAR3 NULL
+SET !EXTRACT NULL
+SET !VAR2 NULL
+TAG POS=1 TYPE=SPAN ATTR=ID:task_x EXTRACT=TXT
+SET !VAR1 EVAL("var nilai1=\"{{!EXTRACT}}\"; nilai1;")
+SET !EXTRACT NULL
+WAIT SECONDS=0.1
+TAG POS=1 TYPE=SPAN ATTR=ID:task_y EXTRACT=TXT
+SET !VAR2 EVAL("var nilai2=\"{{!EXTRACT}}\"; nilai2;")
+SET !EXTRACT NULL
+WAIT SECONDS=0.1
+TAG POS=1 TYPE=SPAN ATTR=ID:task_op EXTRACT=TXT
+SET !VAR3 EVAL("var op=\"{{!EXTRACT}}\"; op;")
+WAIT SECONDS=0.25
+SET !VAR1 EVAL("var op='{{!VAR3}}';var var1='{{!VAR1}}'; var var2='{{!VAR2}}';var b;if(op=='+'){b=parseFloat(var1) + parseFloat(var2);}else if(op=='-'){b=parseFloat(var1) - parseFloat(var2);}else if(op=='/'){b=parseFloat(var1) / parseFloat(var2);}else if(op=='×'){b=parseFloat(var1) * parseFloat(var2);};console.log(var1 + op + var2 +' = '+b);b;")
+SET !EXTRACT NULL
+WAIT SECONDS=0.1
+TAG POS=1 TYPE=SPAN ATTR=ID:task_res EXTRACT=TXT
+SET !VAR2 EVAL("var a;var z='{{!EXTRACT}}';var hasil='{{!VAR1}}';if(parseFloat(z)==parseFloat(hasil)){a='button_correct';}else{a='button_wrong'};a;")
+TAG POS=1 TYPE=DIV ATTR=ID:{{!VAR2}}
+SET !VAR2 NULL
+SET !VAR1 NULL
+SET !VAR3 NULL
+SET !EXTRACT NULL
